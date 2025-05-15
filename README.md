@@ -11,8 +11,9 @@ This project contains an AWS Lambda function (Python) that is triggered by S3 ob
 - AWS CLI configured
 - AWS SAM CLI installed
 - Python 3.12
+- **No prior AWS experience required—just follow the steps below!**
 
-## Setup & Deployment
+## Setup & Deployment (Anyone Can Execute)
 
 1. **Install dependencies** (if any):
    ```powershell
@@ -40,6 +41,7 @@ This project contains an AWS Lambda function (Python) that is triggered by S3 ob
 ## Notes
 - The Lambda function reads the SNS topic ARN from the environment variable `ALERT_TOPIC_ARN`.
 - Update the `template.yaml` to match your bucket and email.
+- **This project is designed so anyone can follow the instructions and execute it successfully, even without prior AWS experience.**
 
 ## Cleanup
 To delete the stack and all resources:
