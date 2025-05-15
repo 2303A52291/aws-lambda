@@ -1,0 +1,49 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: AWS Lambda function triggered by S3 and sends alert via SNS
+
+Resources:
+  S3AlertFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: lambda_function.lambda_handler
+      Runtime: python3.12
+      CodeUri: .
+      Description: Sends SNS alert on S3 object creation
+      MemorySize: 128
+      Timeout: 10
+      Policies:
+        - SNSPublishMessagePolicy:
+            TopicName: !Ref AlertTopic
+        - S3ReadPolicy:
+            BucketName: !Ref SourceBucket
+      Events:
+        S3Event:
+          Type: S3
+          Properties:
+            Bucket: !Ref SourceBucket
+            Events: s3:ObjectCreated:*
+  
+  AlertTopic:
+    Type: AWS::SNS::Topic
+    Properties:
+      DisplayName: S3 Alert Topic
+      Subscription:
+        - Endpoint: youremail@example.com
+          Protocol: email
+
+  SourceBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: your-source-bucket-name
+
+Outputs:
+  LambdaFunction:
+    Description: Lambda Function ARN
+    Value: !GetAtt S3AlertFunction.Arn
+  SNSTopic:
+    Description: SNS Topic ARN
+    Value: !Ref AlertTopic
+  S3Bucket:
+    Description: S3 Bucket Name
+    Value: !Ref SourceBucket
