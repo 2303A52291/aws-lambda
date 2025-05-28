@@ -5,7 +5,7 @@ This project contains an AWS Lambda function (Python) that is triggered by S3 ob
 ## Project Structure
 - `lambda_function.py`: Lambda function code
 - `template.yaml`: AWS SAM/CloudFormation template
-- `.github/copilot-instructions.md`: Copilot custom instructions
+  
 
 ## Prerequisites
 - AWS CLI configured
